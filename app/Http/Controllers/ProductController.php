@@ -36,12 +36,13 @@ class ProductController extends Controller
             $query->where('brand', 'ilike', "%{$request->brand}%");
         }
 
-        $products = $query->paginate(10);
+        $products = $query->paginate(20);
 
         return response()->json([
             'success' => true,
             'message' => count($products).' Tane Ürün listelendi.',
-            'data' => $products
+            'data' => $products,
+            'page' => $products->currentPage()
         ], 200);
     }
 

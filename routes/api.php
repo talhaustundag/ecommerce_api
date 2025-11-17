@@ -38,6 +38,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'addToCart']);
     Route::post('/cart/remove', [CartController::class, 'removeItem']);
     Route::post('/cart/clear', [CartController::class, 'clearCart']);
+    Route::put('/cart/update', [CartController::class, 'update']);
+
     // Order
     Route::post('/orders/create', [OrderController::class, 'createOrder']);
     Route::get('/orders', [OrderController::class, 'listOrders']);

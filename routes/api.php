@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
@@ -28,6 +29,9 @@ Route::get('/products', [ProductController::class, 'index']);
 
 // User routes
 Route::middleware(['auth:sanctum'])->group(function () {
+    //Kullanıcı
+    Route::get('/profile', [UserController::class, 'profile']);
+    Route::put('/profile/{profile}', [UserController::class, 'update']);
     //Sepet
     Route::get('/cart', [CartController::class, 'getCart']);
     Route::post('/cart/add', [CartController::class, 'addToCart']);
@@ -40,9 +44,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 // Admin routes
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
-    //Kullanıcı
-    Route::get('/profile', [UserController::class, 'profile']);
-    Route::put('/profile/{profile}', [UserController::class, 'update']);
+    //Admin Dashboard
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+    //Orders
+    Route::put('/admin/orders/{order}/status', [OrderController::class, 'updateStatus']);
     //Kategori
     Route::post('/categories', [CategoryController::class, 'store']);
     Route::put('/categories/{category}', [CategoryController::class, 'update']);

@@ -35,6 +35,20 @@ class ProductController extends Controller
         if ($request->has('brand')) {
             $query->where('brand', 'ilike', "%{$request->brand}%");
         }
+        // Sıralama
+        if ($request->has('sort_by')) {
+            switch ($request->sort_by) {
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'newest':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+            }
+        }
 
         $products = $query->paginate(20);
 

@@ -49,7 +49,7 @@ class OrderController extends Controller
             $order = Order::create([
                 'user_id' => auth()->id(),
                 'total_amount' => $total,
-                'status' => 'pending'
+                'status' => 'beklemede'
             ]);
 
             // ORDER ITEMS OLUŞTURMA + STOK DÜŞME
@@ -103,6 +103,24 @@ class OrderController extends Controller
             'orders' => $orders
         ], 200);
     }
+    //SİPARİŞ GÜNCELLEME
+    public function updateStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'status' => 'required|in:beklemede,hazırlanıyor,kargolandı,teslim_edildi,iptal'
+        ]);
+
+        $order->update([
+            'status' => $request->status
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sipariş durumu güncellendi.',
+            'order' => $order
+        ], 200);
+    }
+
 
 
 }

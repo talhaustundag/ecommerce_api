@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -58,11 +59,17 @@ class CartController extends Controller
         ], 201);
     }
 
-    public function removeItem(Request $request)
+    public function removeItem($product_id)
     {
-        $request->validate([
-            'product_id' => 'required|exists:products,id'
-        ]);
+        // Parametre doğrulama
+        if (!Product::where('id', $product_id)->exists()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Geçersiz ürün ID.',
+                'data' => null,
+                'errors' => []
+            ], 404);
+        }
 
         $cart = Cart::where('user_id', auth()->id())->first();
 
@@ -76,7 +83,7 @@ class CartController extends Controller
         }
 
         $cartItem = CartItem::where('cart_id', $cart->id)
-            ->where('product_id', $request->product_id)
+            ->where('product_id', $product_id)
             ->first();
 
         if (!$cartItem) {
@@ -99,12 +106,14 @@ class CartController extends Controller
             'success' => true,
             'message' => 'Ürün sepetten çıkarıldı.',
             'data' => [
-                'product_id' => $request->product_id,
+                'product_id' => $product_id,
                 'remaining_quantity' => $cartItem->quantity ?? 0
             ],
             'errors' => []
         ], 200);
     }
+
+
 
     public function clearCart()
     {

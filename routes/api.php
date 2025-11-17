@@ -36,13 +36,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //Sepet
     Route::get('/cart', [CartController::class, 'getCart']);
     Route::post('/cart/add', [CartController::class, 'addToCart']);
-    Route::post('/cart/remove', [CartController::class, 'removeItem']);
-    Route::post('/cart/clear', [CartController::class, 'clearCart']);
+    Route::delete('/cart/remove/{product_id}', [CartController::class, 'removeItem']);
+    Route::delete('/cart/clear', [CartController::class, 'clearCart']);
     Route::put('/cart/update', [CartController::class, 'update']);
 
     // Order
-    Route::post('/orders/create', [OrderController::class, 'createOrder']);
+    Route::post('/orders', [OrderController::class, 'createOrder']);
     Route::get('/orders', [OrderController::class, 'listOrders']);
+    Route::get('/orders/{order_id}', [OrderController::class, 'detailOrders']);
 });
 
 // Admin routes

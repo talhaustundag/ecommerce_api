@@ -130,6 +130,52 @@ class OrderController extends Controller
         ], 200);
     }
 
+    public function detailOrders($order_id)
+    {
+        $order = Order::where('id', $order_id)
+            ->where('user_id', auth()->id())
+            ->with(['items.product', 'user'])
+            ->first();
 
+        if (!$order) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sipariş bulunamadı.',
+                'data' => null,
+                'errors' => []
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sipariş detayı getirildi.',
+            'data' => [
+                'order' => [
+                    'id' => $order->id,
+                    'user' => [
+                        'id' => $order->user->id,
+                        'name' => $order->user->name,
+                        'email' => $order->user->email,
+                    ],
+                    'status' => $order->status,
+                    'total_amount' => $order->total_amount,
+                    'created_at' => $order->created_at,
+                    'updated_at' => $order->updated_at,
+
+                    // Ürünler
+                    'items' => $order->items->map(function ($item) {
+                        return [
+                            'product_id' => $item->product_id,
+                            'product_name' => $item->product->name,
+                            'quantity' => $item->quantity,
+                            'price' => $item->price,
+                            'total' => $item->price * $item->quantity
+                        ];
+                    })
+                ]
+            ],
+            'errors' => []
+        ], 200);
+    }
 
 }

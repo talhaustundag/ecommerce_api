@@ -27,7 +27,7 @@ class AdminController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Dashboard verileri getirildi.',
+            'message' => 'Admin Dashboard verileri getirildi.',
             'data' => [
                 'toplam_kullanici' => $totalUsers,
                 'toplam_siparis' => $totalOrders,

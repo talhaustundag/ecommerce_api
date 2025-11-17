@@ -114,9 +114,14 @@ class OrderController extends Controller
     //SİPARİŞ GÜNCELLEME
     public function updateStatus(Request $request, Order $order)
     {
-        $request->validate([
-            'status' => 'required|in:beklemede,hazırlanıyor,kargolandı,teslim_edildi,iptal'
-        ]);
+        $request->validate(
+            [
+                'status' => 'required|in:beklemede,hazırlanıyor,kargolandı,teslim_edildi,iptal'
+            ],
+            [
+                'status.in' => 'Seçilen sipariş durumu geçersiz. Geçerli durumlar: beklemede, hazırlanıyor, kargolandı, teslim edildi, iptal.'
+            ]
+        );
 
         $order->update([
             'status' => $request->status

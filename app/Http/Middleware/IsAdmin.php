@@ -20,7 +20,8 @@ class IsAdmin
             return response()->json([
                 'success' => false,
                 'message' => 'Bu işlem için yetkiniz yok.',
-                'errors' => []
+                'data' => [],
+                'errors' => 'Yetkisiz İşlem.'
             ], 403);
         }
 

@@ -26,12 +26,13 @@ Route::post('register',[LoginController::class,'register']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'product_detail']);
 
 // User routes
 Route::middleware(['auth:sanctum'])->group(function () {
     //Kullanıcı
     Route::get('/profile', [UserController::class, 'profile']);
-    Route::put('/profile/{profile}', [UserController::class, 'update']);
+    Route::put('/profile', [UserController::class, 'update']);
     //Sepet
     Route::get('/cart', [CartController::class, 'getCart']);
     Route::post('/cart/add', [CartController::class, 'addToCart']);

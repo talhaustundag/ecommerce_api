@@ -11,7 +11,7 @@ class CategoryController extends Controller
     // Listeleme
     public function index()
     {
-        $categories = Category::orderBy('id', 'desc')->get();
+        $categories = Category::orderBy('id', 'asc')->get();
 
         return response()->json([
             'success' => true,

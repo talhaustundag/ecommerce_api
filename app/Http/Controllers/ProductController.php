@@ -60,6 +60,27 @@ class ProductController extends Controller
             'page' => $products->currentPage()
         ], 200);
     }
+    public function product_detail($id)
+    {
+        $product = Product::with('category')->find($id);
+
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ürün bulunamadı.',
+                'data' => null,
+                'errors' => []
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Ürün detayları getirildi.',
+            'data' => $product,
+            'errors' => []
+        ], 200);
+    }
+
 
     public function store(ProductRequest $request)
     {

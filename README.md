@@ -198,6 +198,11 @@ Projenin test koleksiyonu ekli dosya olarak verilmiştir:
 
 Ecommerce-Api.postman_collection.json
 
+📄 Postman Collection  
+
+[Ecommerce-Api.postman_collection.json](Ecommerce-Api.postman_collection.json)
+
+
 🧰 Kullanılan Teknolojiler
 
 PHP 8+

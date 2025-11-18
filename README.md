@@ -11,9 +11,9 @@ API tamamen RESTful, JSON Response, Sanctum Authentication, Validation, Swagger/
 
 1️⃣ Depoyu Klonlayın
 
-git clone https://github.com/talhaustundag/ecommerce_api.git
+git clone https://github.com/talhaustundag/ecommerce-api.git
 
-cd ecommerce_api
+cd ecommerce-api
 
 2️⃣ Environment Ayarları
 

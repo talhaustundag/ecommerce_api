@@ -22,16 +22,23 @@ cp .env.example .env
 .env dosyasında PostgreSQL bağlantısını yapılandır:
 
 DB_CONNECTION=pgsql
+
 DB_HOST=127.0.0.1
+
 DB_PORT=5432
+
 DB_DATABASE=ecommerce_api
+
 DB_USERNAME=postgres
+
 DB_PASSWORD=123456
 
 Mail gönderimi için gerekli environment ayarları:
 
 MAIL_MAILER=log
+
 MAIL_FROM_ADDRESS=no-reply@ecommerce.local
+
 MAIL_FROM_NAME="Ecommerce API"
 
 Not: Geliştirme ortamında mail içerikleri storage/logs/laravel.log üzerinden görüntülenir.
@@ -242,6 +249,7 @@ email: user@test.com
 password: user123
 
 Ancak proje gereksinimlerinde şifre validation kuralı minimum 8 karakter olarak belirtilmişti:
+
 Password: Zorunlu, minimum 8 karakter
 
 Bu nedenle user123 (7 karakter) geçersiz olduğu için, validation kurallarına uygun olacak şekilde user.123 olarak güncellendi.
